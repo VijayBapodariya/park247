@@ -4469,7 +4469,7 @@ strong {
 }
 .ghost-button.sign-in {
     border-style: none;
-    color: #fff;
+    color: #000;
     font-weight: 600;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
@@ -5086,7 +5086,7 @@ strong {
     margin-right: 16px;
 }
 .slate-bg {
-    background-color: #32374d;
+    background-color: #fff;
 }
 .red-sheen {
     background-image: linear-gradient(
