@@ -1085,7 +1085,7 @@ video {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
-    background-color: #222133;
+    background-color: #001920;
     color: #fff;
     color-scheme: light dark;
     font-family: Roboto, sans-serif;
@@ -4129,9 +4129,9 @@ strong {
     top: auto;
 }
 .solid-button {
-    background-color: #009dff;
+    background-color: #005267;
     border-radius: 4px;
-    color: #222133;
+    color: #fff;
     display: inline-block;
     font-family: Poppins, sans-serif;
     font-size: 1rem;
@@ -4146,7 +4146,7 @@ strong {
     z-index: 2;
 }
 .solid-button:hover {
-    background-color: #009dff;
+    background-color: #005267;
     border-style: none;
     box-shadow:
         0 1px 64px rgba(97, 217, 227, 0.2),
@@ -4170,12 +4170,10 @@ strong {
     margin-top: 24px;
 }
 .solid-button.icy-blue {
-    background-color: #67ebfd;
+    background-color: #005267;
 }
 .solid-button.icy-blue:hover {
-    box-shadow:
-        0 1px 64px rgba(73, 37, 239, 0.2),
-        0 1px 16px rgba(73, 37, 239, 0.35);
+    box-shadow: 0 1px 64px rgba(97, 217, 227, 0.2), 0 1px 16px rgba(97, 217, 227, 0.35);
 }
 .solid-button.red {
     background-color: #ed1a5e;
@@ -4197,6 +4195,7 @@ strong {
     display: flex;
     justify-content: space-between; /* left & right */
     align-items: center;
+    
 }
 .fmenus {
     display: flex;
@@ -4248,7 +4247,7 @@ strong {
     list-style: none;
 }
 .fmenus li a {
-    border-right: 1px solid #000;
+    border-right: 1px solid #fff;
     color: #212529;
     font-size: 13px;
     font-weight: 600;
@@ -4262,7 +4261,7 @@ strong {
     font-weight: 600;
     line-height: 1.8;
     opacity: 0.8;
-    color: #000;
+    color: #fff;
 }
 .subheading._50ch {
     max-width: 50ch;
@@ -4469,13 +4468,13 @@ strong {
 }
 .ghost-button.sign-in {
     border-style: none;
-    color: #000;
+    color: #fff;
     font-weight: 600;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
 }
 .ghost-button.sign-in:hover {
-    box-shadow: inset 0 0 0 1px #009dff;
+    box-shadow: inset 0 0 0 1px #005267;
 }
 .video-overlay {
     background-image: url(h);
@@ -5511,7 +5510,7 @@ strong {
 }
 ._20ch {
     max-width: 20ch;
-    color:#009dff;
+    color:#fff;
 }
 ._15ch {
     max-width: 15ch;
@@ -6277,12 +6276,12 @@ strong {
 }
 .zap-2-fadedown {
     background-image:
-        linear-gradient(hsla(0, 0%, 100%, 0), #fff),
+        linear-gradient(hsla(0, 0%, 100%, 0.178), #005267 ),
         url(https://assets-global.website-files.com/608797bd8fee8c59d4c0029e/6285bc23bf802b3964ec2877_Zap%20Loop%202.svg);
 }
 .zap-2-cornerfade {
     background-image:
-        linear-gradient(315deg, hsla(0, 0%, 100%, 0), #fff),
+        linear-gradient(315deg, hsla(0, 0%, 100%, 0), #005267),
         url(https://assets-global.website-files.com/608797bd8fee8c59d4c0029e/6285bc23bf802b3964ec2877_Zap%20Loop%202.svg);
 }
 .zap-2-cornerfade,
@@ -6350,7 +6349,7 @@ strong {
     text-decoration: underline;
 }
 .dark-slate-bg {
-    background-color: #ffff;
+    background-color: #001920 ;
 }
 .image-35 {
     bottom: 0;
@@ -6408,7 +6407,7 @@ strong {
         url(https://assets-global.website-files.com/608797bd8fee8c59d4c0029e/62ddcc2f6aace73d45d63f8d_solanaShape2-full.png);
 }
 .esport-bg {
-    background-image: url(https://assets-global.website-files.com/608797bd8fee8c59d4c0029e/608797bd8fee8c142fc002b4_esports-midsection-background.optimised.jpg);
+    background-image: url(wmremove1-transformed1.png);
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: cover;
