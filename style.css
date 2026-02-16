@@ -5085,7 +5085,7 @@ strong {
     margin-right: 16px;
 }
 .slate-bg {
-    background-color: #fff;
+    background-color: #001920 ;
 }
 .red-sheen {
     background-image: linear-gradient(
@@ -6902,6 +6902,7 @@ strong {
         grid-template-rows: auto auto auto;
     }
     .hero-content.left-align {
+        font-size: small;
         align-items: center;
         text-align: center;
     }
