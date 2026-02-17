@@ -3760,6 +3760,11 @@ strong {
     opacity: 0.4;
     z-index: 1;
 }
+.heading {
+    font-size: 2.5rem !important;;
+    font-weight: 900;
+    color: #fff;
+}
 .heading-7 {
     padding-bottom: 24px;
 }
@@ -4597,9 +4602,10 @@ strong {
 .landing-hero-section {
     padding-bottom: 220px;
     padding-top: 220px;
+    height: 100%;
     position: relative;
 }
-.landing-hero-section.loyalty {
+.landing-hero-section .loyalty {
     background-image:
         url(https://assets-global.website-files.com/608797bd8fee8c59d4c0029e/60e64a65ebb8c75e0edf65c4_Hexagon-Hero%20Copy.png),
         linear-gradient(#26685f, #191353);
@@ -7511,6 +7517,9 @@ strong {
     .score {
         font-size: 12px;
         margin-right: -36px;
+    }
+    .landing-hero-section{
+        height: 40vh;
     }
     .landing-hero-section.compact {
         padding-bottom: 64px;
@@ -10506,6 +10515,9 @@ body {
         justify-content: center;
         width: 100%;
     }
+    .heading {
+    font-size: 1.5rem !important;
+}
 }
 
 @media screen and (max-width: 768px) {
