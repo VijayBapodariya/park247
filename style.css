@@ -3772,8 +3772,9 @@ strong {
     margin-bottom: 24px;
 }
 .blur-bg {
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
+    /* -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px); */
+    /* background-color: #001920; */
     bottom: 0;
     left: 0;
     position: absolute;
@@ -3783,7 +3784,7 @@ strong {
 }
 .blur-bg,
 .blur-bg.sports-landing {
-    background-color: initial;
+    background-color: #001920;
 }
 .blur-bg.rich-blue {
     background-color: rgba(23, 13, 64, 0.8);
@@ -7518,9 +7519,9 @@ strong {
         font-size: 12px;
         margin-right: -36px;
     }
-    .landing-hero-section{
+    /* .landing-hero-section{
         height: 40vh;
-    }
+    } */
     .landing-hero-section.compact {
         padding-bottom: 64px;
     }
