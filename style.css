@@ -10653,6 +10653,9 @@ body {
         text-align: center;
         padding: 0 20px;
         max-width: 100%;
+        
+        bottom: 0px;
+        left: 50%;
     }
 
     .hero-text h1 {
@@ -10669,6 +10672,22 @@ body {
     }
 }
 
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 0 20px;
+    background-color: #001920;
+    padding-bottom: 5px;
+}
+
+/* Desktop 2 column */
+@media (min-width: 768px) {
+    .hero-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 /* Extra Small Devices */
 @media (max-width: 480px) {
 
@@ -10678,11 +10697,142 @@ body {
 
     .hero-text {
         bottom: 0px;
-        left: 25%;
+        left: 0%;
+        transform: skew(20deg);
+        padding: 0 15px;
     }
 
     .hero-text p {
         font-size: 16px;
+        background-color: #000;
+        padding: 0 15px;
+    }
+}
+
+.provider-section {
+    background: #001920;
+    padding: 60px 0;
+}
+
+.container {
+    width: 95%;
+    max-width: 1300px;
+    margin: auto;
+}
+
+.section-title {
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+/* GRID */
+.provider-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+/* CARD */
+.provider-card {
+    position: relative;
+    border-radius: 16px;
+    background: #0d2a32;
+    border: 1px solid rgba(255,255,255,0.2);
+    overflow: hidden;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.provider-card:hover {
+    box-shadow: 0 0 20px rgba(255, 190, 80, 0.4);
+}
+
+/* INNER */
+.card-inner {
+    position: relative;
+    padding: 5px;
+}
+
+/* BADGE */
+.badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background: #001920;
+    border: 1px solid rgba(255,190,80,0.3);
+    color: #f5b942;
+    z-index: 2;
+}
+
+/* IMAGE */
+.image-box {
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #12333d;
+}
+
+.provider-img {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: transform 0.5s ease;
+}
+
+.provider-card:hover .provider-img {
+    transform: scale(1.1);
+}
+
+/* FOOTER */
+.card-footer {
+    text-align: center;
+    padding: 5px;
+    position: relative;
+}
+
+.card-footer p {
+    color: #f5b942;
+      font-size: .9rem !important;
+      margin: 0;
+      font-weight: 900;
+    letter-spacing: 1px;
+}
+
+/* Hover Line */
+.hover-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(to right, #f5b942, #ff8c00);
+    transition: 0.4s;
+}
+
+.provider-card:hover .hover-line {
+    width: 100%;
+}
+
+/* ===================== */
+/* RESPONSIVE BREAKPOINTS */
+/* ===================== */
+
+@media (min-width: 768px) {
+    .provider-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .provider-grid {
+        grid-template-columns: repeat(6, 1fr);
     }
 }
 
