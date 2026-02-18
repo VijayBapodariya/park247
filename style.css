@@ -2384,7 +2384,7 @@ textarea.w-select {
 }
 .w-background-video {
     color: #fff;
-    height: 500px;
+    /* height: 500px; */
     overflow: hidden;
     position: relative;
 }
@@ -3385,14 +3385,13 @@ strong {
     padding-bottom: 100px;
 }
 .navbar {
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
-    z-index: 999;
 }
 .nav {
     align-items: center;
     display: flex;
-    height: 80px;
+    /* height: 80px; */
     justify-content: space-between;
     padding-bottom: 10px;
     padding-top: 10px;
@@ -4601,8 +4600,6 @@ strong {
     flex: 1 1;
 }
 .landing-hero-section {
-    padding-bottom: 220px;
-    padding-top: 220px;
     height: 100%;
     position: relative;
 }
@@ -7044,8 +7041,8 @@ strong {
         width: auto;
     }
     .landing-hero-section {
-        padding-bottom: 60px;
-        padding-top: 128px;
+        /* padding-bottom: 60px;
+        padding-top: 128px; */
     }
     .landing-hero-section.loyalty {
         background-image: linear-gradient(#26685f, #191353);
@@ -7244,10 +7241,10 @@ strong {
     .m-mb-50 {
         margin-bottom: 50px;
     }
-    .navbar {
+    /* .navbar {
         background-color: initial;
         position: absolute;
-    }
+    } */
     .logo {
         width: 150px;
     }
@@ -7522,13 +7519,13 @@ strong {
     /* .landing-hero-section{
         height: 40vh;
     } */
-    .landing-hero-section.compact {
+    .landing-hero-section .compact {
         padding-bottom: 64px;
     }
-    .landing-hero-section.coindirectory {
+    .landing-hero-section .coindirectory {
         padding-bottom: 250px;
     }
-    .landing-hero-section.sportsdirectory {
+    .landing-hero-section .sportsdirectory {
         padding-bottom: 350px;
     }
     ._4-grid-card-section {
@@ -7712,6 +7709,9 @@ strong {
     }
 }
 @media screen and (max-width: 479px) {
+    .hero-background-video{
+        height: 100%;
+    }
     h2 {
         font-size: 1.5rem;
     }
@@ -7889,6 +7889,8 @@ strong {
         margin-top: -6px;
     }
     .landing-hero-section {
+        height: 200px;
+        margin-bottom: 5px;
         padding-bottom: 120px;
         padding-top: 100px;
     }
