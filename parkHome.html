@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            transition: opacity ease-in 0.2s;
+        }
+
+        body[unresolved] {
+            opacity: 0;
+            display: block;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+    <style type="text/css">
+        :root {
+            --toastify-color-light: #fff;
+            --toastify-color-dark: #121212;
+            --toastify-color-info: #3498db;
+            --toastify-color-success: #07bc0c;
+            --toastify-color-warning: #f1c40f;
+            --toastify-color-error: hsl(6, 78%, 57%);
+            --toastify-color-transparent: rgba(255, 255, 255, .7);
+            --toastify-icon-color-info: var(--toastify-color-info);
+            --toastify-icon-color-success: var(--toastify-color-success);
+            --toastify-icon-color-warning: var(--toastify-color-warning);
+            --toastify-icon-color-error: var(--toastify-color-error);
+            --toastify-container-width: fit-content;
+            --toastify-toast-width: 320px;
+            --toastify-toast-offset: 16px;
+            --toastify-toast-top: max(var(--toastify-toast-offset), env(safe-area-inset-top));
+            --toastify-toast-right: max(var(--toastify-toast-offset), env(safe-area-inset-right));
+            --toastify-toast-left: max(var(--toastify-toast-offset), env(safe-area-inset-left));
+            --toastify-toast-bottom: max(var(--toastify-toast-offset), env(safe-area-inset-bottom));
+            --toastify-toast-background: #fff;
+            --toastify-toast-padding: 14px;
+            --toastify-toast-min-height: 64px;
+            --toastify-toast-max-height: 800px;
+            --toastify-toast-bd-radius: 6px;
+            --toastify-toast-shadow: 0px 4px 12px rgba(0, 0, 0, .1);
+            --toastify-font-family: sans-serif;
+            --toastify-z-index: 9999;
+            --toastify-text-color-light: #757575;
+            --toastify-text-color-dark: #fff;
+            --toastify-text-color-info: #fff;
+            --toastify-text-color-success: #fff;
+            --toastify-text-color-warning: #fff;
+            --toastify-text-color-error: #fff;
+            --toastify-spinner-color: #616161;
+            --toastify-spinner-color-empty-area: #e0e0e0;
+            --toastify-color-progress-light: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);
+            --toastify-color-progress-dark: #bb86fc;
+            --toastify-color-progress-info: var(--toastify-color-info);
+            --toastify-color-progress-success: var(--toastify-color-success);
+            --toastify-color-progress-warning: var(--toastify-color-warning);
+            --toastify-color-progress-error: var(--toastify-color-error);
+            --toastify-color-progress-bgo: .2
+        }
+
+        .Toastify__toast-container {
+            z-index: var(--toastify-z-index);
+            -webkit-transform: translate3d(0, 0, var(--toastify-z-index));
+            position: fixed;
+            width: var(--toastify-container-width);
+            box-sizing: border-box;
+            color: #fff;
+            display: flex;
+            flex-direction: column
+        }
+
+        .Toastify__toast-container--top-left {
+            top: var(--toastify-toast-top);
+            left: var(--toastify-toast-left)
+        }
+
+        .Toastify__toast-container--top-center {
+            top: var(--toastify-toast-top);
+            left: 50%;
+            transform: translate(-50%);
+            align-items: center
+        }
+
+        .Toastify__toast-container--top-right {
+            top: var(--toastify-toast-top);
+            right: var(--toastify-toast-right);
+            align-items: end
+        }
+
+        .Toastify__toast-container--bottom-left {
+            bottom: var(--toastify-toast-bottom);
+            left: var(--toastify-toast-left)
+        }
+
+        .Toastify__toast-container--bottom-center {
+            bottom: var(--toastify-toast-bottom);
+            left: 50%;
+            transform: translate(-50%);
+            align-items: center
+        }
+
+        .Toastify__toast-container--bottom-right {
+            bottom: var(--toastify-toast-bottom);
+            right: var(--toastify-toast-right);
+            align-items: end
+        }
+
+        .Toastify__toast {
+            --y: 0;
+            position: relative;
+            touch-action: none;
+            width: var(--toastify-toast-width);
+            min-height: var(--toastify-toast-min-height);
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+            padding: var(--toastify-toast-padding);
+            border-radius: var(--toastify-toast-bd-radius);
+            box-shadow: var(--toastify-toast-shadow);
+            max-height: var(--toastify-toast-max-height);
+            font-family: var(--toastify-font-family);
+            z-index: 0;
+            display: flex;
+            flex: 1 auto;
+            align-items: center;
+            word-break: break-word
+        }
+
+        @media only screen and (max-width: 480px) {
+            .Toastify__toast-container {
+                width: 100vw;
+                left: env(safe-area-inset-left);
+                margin: 0
+            }
+
+            .Toastify__toast-container--top-left,
+            .Toastify__toast-container--top-center,
+            .Toastify__toast-container--top-right {
+                top: env(safe-area-inset-top);
+                transform: translate(0)
+            }
+
+            .Toastify__toast-container--bottom-left,
+            .Toastify__toast-container--bottom-center,
+            .Toastify__toast-container--bottom-right {
+                bottom: env(safe-area-inset-bottom);
+                transform: translate(0)
+            }
+
+            .Toastify__toast-container--rtl {
+                right: env(safe-area-inset-right);
+                left: initial
+            }
+
+            .Toastify__toast {
+                --toastify-toast-width: 100%;
+                margin-bottom: 0;
+                border-radius: 0
+            }
+        }
+
+        .Toastify__toast-container[data-stacked=true] {
+            width: var(--toastify-toast-width)
+        }
+
+        .Toastify__toast--stacked {
+            position: absolute;
+            width: 100%;
+            transform: translate3d(0, var(--y), 0) scale(var(--s));
+            transition: transform .3s
+        }
+
+        .Toastify__toast--stacked[data-collapsed] .Toastify__toast-body,
+        .Toastify__toast--stacked[data-collapsed] .Toastify__close-button {
+            transition: opacity .1s
+        }
+
+        .Toastify__toast--stacked[data-collapsed=false] {
+            overflow: visible
+        }
+
+        .Toastify__toast--stacked[data-collapsed=true]:not(:last-child)>* {
+            opacity: 0
+        }
+
+        .Toastify__toast--stacked:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: calc(var(--g) * 1px);
+            bottom: 100%
+        }
+
+        .Toastify__toast--stacked[data-pos=top] {
+            top: 0
+        }
+
+        .Toastify__toast--stacked[data-pos=bot] {
+            bottom: 0
+        }
+
+        .Toastify__toast--stacked[data-pos=bot].Toastify__toast--stacked:before {
+            transform-origin: top
+        }
+
+        .Toastify__toast--stacked[data-pos=top].Toastify__toast--stacked:before {
+            transform-origin: bottom
+        }
+
+        .Toastify__toast--stacked:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            transform: scaleY(3);
+            z-index: -1
+        }
+
+        .Toastify__toast--rtl {
+            direction: rtl
+        }
+
+        .Toastify__toast--close-on-click {
+            cursor: pointer
+        }
+
+        .Toastify__toast-icon {
+            margin-inline-end: 10px;
+            width: 22px;
+            flex-shrink: 0;
+            display: flex
+        }
+
+        .Toastify--animate {
+            animation-fill-mode: both;
+            animation-duration: .5s
+        }
+
+        .Toastify--animate-icon {
+            animation-fill-mode: both;
+            animation-duration: .3s
+        }
+
+        .Toastify__toast-theme--dark {
+            background: var(--toastify-color-dark);
+            color: var(--toastify-text-color-dark)
+        }
+
+        .Toastify__toast-theme--light,
+        .Toastify__toast-theme--colored.Toastify__toast--default {
+            background: var(--toastify-color-light);
+            color: var(--toastify-text-color-light)
+        }
+
+        .Toastify__toast-theme--colored.Toastify__toast--info {
+            color: var(--toastify-text-color-info);
+            background: var(--toastify-color-info)
+        }
+
+        .Toastify__toast-theme--colored.Toastify__toast--success {
+            color: var(--toastify-text-color-success);
+            background: var(--toastify-color-success)
+        }
+
+        .Toastify__toast-theme--colored.Toastify__toast--warning {
+            color: var(--toastify-text-color-warning);
+            background: var(--toastify-color-warning)
+        }
+
+        .Toastify__toast-theme--colored.Toastify__toast--error {
+            color: var(--toastify-text-color-error);
+            background: var(--toastify-color-error)
+        }
+
+        .Toastify__progress-bar-theme--light {
+            background: var(--toastify-color-progress-light)
+        }
+
+        .Toastify__progress-bar-theme--dark {
+            background: var(--toastify-color-progress-dark)
+        }
+
+        .Toastify__progress-bar--info {
+            background: var(--toastify-color-progress-info)
+        }
+
+        .Toastify__progress-bar--success {
+            background: var(--toastify-color-progress-success)
+        }
+
+        .Toastify__progress-bar--warning {
+            background: var(--toastify-color-progress-warning)
+        }
+
+        .Toastify__progress-bar--error {
+            background: var(--toastify-color-progress-error)
+        }
+
+        .Toastify__progress-bar-theme--colored.Toastify__progress-bar--info,
+        .Toastify__progress-bar-theme--colored.Toastify__progress-bar--success,
+        .Toastify__progress-bar-theme--colored.Toastify__progress-bar--warning,
+        .Toastify__progress-bar-theme--colored.Toastify__progress-bar--error {
+            background: var(--toastify-color-transparent)
+        }
+
+        .Toastify__close-button {
+            color: #fff;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: transparent;
+            outline: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            opacity: .7;
+            transition: .3s ease;
+            z-index: 1
+        }
+
+        .Toastify__toast--rtl .Toastify__close-button {
+            left: 6px;
+            right: unset
+        }
+
+        .Toastify__close-button--light {
+            color: #000;
+            opacity: .3
+        }
+
+        .Toastify__close-button>svg {
+            fill: currentColor;
+            height: 16px;
+            width: 14px
+        }
+
+        .Toastify__close-button:hover,
+        .Toastify__close-button:focus {
+            opacity: 1
+        }
+
+        @keyframes Toastify__trackProgress {
+            0% {
+                transform: scaleX(1)
+            }
+
+            to {
+                transform: scaleX(0)
+            }
+        }
+
+        .Toastify__progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: .7;
+            transform-origin: left
+        }
+
+        .Toastify__progress-bar--animated {
+            animation: Toastify__trackProgress linear 1 forwards
+        }
+
+        .Toastify__progress-bar--controlled {
+            transition: transform .2s
+        }
+
+        .Toastify__progress-bar--rtl {
+            right: 0;
+            left: initial;
+            transform-origin: right;
+            border-bottom-left-radius: initial
+        }
+
+        .Toastify__progress-bar--wrp {
+            position: absolute;
+            overflow: hidden;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            border-bottom-left-radius: var(--toastify-toast-bd-radius);
+            border-bottom-right-radius: var(--toastify-toast-bd-radius)
+        }
+
+        .Toastify__progress-bar--wrp[data-hidden=true] {
+            opacity: 0
+        }
+
+        .Toastify__progress-bar--bg {
+            opacity: var(--toastify-color-progress-bgo);
+            width: 100%;
+            height: 100%
+        }
+
+        .Toastify__spinner {
+            width: 20px;
+            height: 20px;
+            box-sizing: border-box;
+            border: 2px solid;
+            border-radius: 100%;
+            border-color: var(--toastify-spinner-color-empty-area);
+            border-right-color: var(--toastify-spinner-color);
+            animation: Toastify__spin .65s linear infinite
+        }
+
+        @keyframes Toastify__bounceInRight {
+
+            0%,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+            }
+
+            0% {
+                opacity: 0;
+                transform: translate3d(3000px, 0, 0)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translate3d(-25px, 0, 0)
+            }
+
+            75% {
+                transform: translate3d(10px, 0, 0)
+            }
+
+            90% {
+                transform: translate3d(-5px, 0, 0)
+            }
+
+            to {
+                transform: none
+            }
+        }
+
+        @keyframes Toastify__bounceOutRight {
+            20% {
+                opacity: 1;
+                transform: translate3d(-20px, var(--y), 0)
+            }
+
+            to {
+                opacity: 0;
+                transform: translate3d(2000px, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__bounceInLeft {
+
+            0%,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+            }
+
+            0% {
+                opacity: 0;
+                transform: translate3d(-3000px, 0, 0)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translate3d(25px, 0, 0)
+            }
+
+            75% {
+                transform: translate3d(-10px, 0, 0)
+            }
+
+            90% {
+                transform: translate3d(5px, 0, 0)
+            }
+
+            to {
+                transform: none
+            }
+        }
+
+        @keyframes Toastify__bounceOutLeft {
+            20% {
+                opacity: 1;
+                transform: translate3d(20px, var(--y), 0)
+            }
+
+            to {
+                opacity: 0;
+                transform: translate3d(-2000px, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__bounceInUp {
+
+            0%,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+            }
+
+            0% {
+                opacity: 0;
+                transform: translate3d(0, 3000px, 0)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translate3d(0, -20px, 0)
+            }
+
+            75% {
+                transform: translate3d(0, 10px, 0)
+            }
+
+            90% {
+                transform: translate3d(0, -5px, 0)
+            }
+
+            to {
+                transform: translateZ(0)
+            }
+        }
+
+        @keyframes Toastify__bounceOutUp {
+            20% {
+                transform: translate3d(0, calc(var(--y) - 10px), 0)
+            }
+
+            40%,
+            45% {
+                opacity: 1;
+                transform: translate3d(0, calc(var(--y) + 20px), 0)
+            }
+
+            to {
+                opacity: 0;
+                transform: translate3d(0, -2000px, 0)
+            }
+        }
+
+        @keyframes Toastify__bounceInDown {
+
+            0%,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+            }
+
+            0% {
+                opacity: 0;
+                transform: translate3d(0, -3000px, 0)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translate3d(0, 25px, 0)
+            }
+
+            75% {
+                transform: translate3d(0, -10px, 0)
+            }
+
+            90% {
+                transform: translate3d(0, 5px, 0)
+            }
+
+            to {
+                transform: none
+            }
+        }
+
+        @keyframes Toastify__bounceOutDown {
+            20% {
+                transform: translate3d(0, calc(var(--y) - 10px), 0)
+            }
+
+            40%,
+            45% {
+                opacity: 1;
+                transform: translate3d(0, calc(var(--y) + 20px), 0)
+            }
+
+            to {
+                opacity: 0;
+                transform: translate3d(0, 2000px, 0)
+            }
+        }
+
+        .Toastify__bounce-enter--top-left,
+        .Toastify__bounce-enter--bottom-left {
+            animation-name: Toastify__bounceInLeft
+        }
+
+        .Toastify__bounce-enter--top-right,
+        .Toastify__bounce-enter--bottom-right {
+            animation-name: Toastify__bounceInRight
+        }
+
+        .Toastify__bounce-enter--top-center {
+            animation-name: Toastify__bounceInDown
+        }
+
+        .Toastify__bounce-enter--bottom-center {
+            animation-name: Toastify__bounceInUp
+        }
+
+        .Toastify__bounce-exit--top-left,
+        .Toastify__bounce-exit--bottom-left {
+            animation-name: Toastify__bounceOutLeft
+        }
+
+        .Toastify__bounce-exit--top-right,
+        .Toastify__bounce-exit--bottom-right {
+            animation-name: Toastify__bounceOutRight
+        }
+
+        .Toastify__bounce-exit--top-center {
+            animation-name: Toastify__bounceOutUp
+        }
+
+        .Toastify__bounce-exit--bottom-center {
+            animation-name: Toastify__bounceOutDown
+        }
+
+        @keyframes Toastify__zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale3d(.3, .3, .3)
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        @keyframes Toastify__zoomOut {
+            0% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0;
+                transform: translate3d(0, var(--y), 0) scale3d(.3, .3, .3)
+            }
+
+            to {
+                opacity: 0
+            }
+        }
+
+        .Toastify__zoom-enter {
+            animation-name: Toastify__zoomIn
+        }
+
+        .Toastify__zoom-exit {
+            animation-name: Toastify__zoomOut
+        }
+
+        @keyframes Toastify__flipIn {
+            0% {
+                transform: perspective(400px) rotateX(90deg);
+                animation-timing-function: ease-in;
+                opacity: 0
+            }
+
+            40% {
+                transform: perspective(400px) rotateX(-20deg);
+                animation-timing-function: ease-in
+            }
+
+            60% {
+                transform: perspective(400px) rotateX(10deg);
+                opacity: 1
+            }
+
+            80% {
+                transform: perspective(400px) rotateX(-5deg)
+            }
+
+            to {
+                transform: perspective(400px)
+            }
+        }
+
+        @keyframes Toastify__flipOut {
+            0% {
+                transform: translate3d(0, var(--y), 0) perspective(400px)
+            }
+
+            30% {
+                transform: translate3d(0, var(--y), 0) perspective(400px) rotateX(-20deg);
+                opacity: 1
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0) perspective(400px) rotateX(90deg);
+                opacity: 0
+            }
+        }
+
+        .Toastify__flip-enter {
+            animation-name: Toastify__flipIn
+        }
+
+        .Toastify__flip-exit {
+            animation-name: Toastify__flipOut
+        }
+
+        @keyframes Toastify__slideInRight {
+            0% {
+                transform: translate3d(110%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideInLeft {
+            0% {
+                transform: translate3d(-110%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideInUp {
+            0% {
+                transform: translate3d(0, 110%, 0);
+                visibility: visible
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideInDown {
+            0% {
+                transform: translate3d(0, -110%, 0);
+                visibility: visible
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideOutRight {
+            0% {
+                transform: translate3d(0, var(--y), 0)
+            }
+
+            to {
+                visibility: hidden;
+                transform: translate3d(110%, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideOutLeft {
+            0% {
+                transform: translate3d(0, var(--y), 0)
+            }
+
+            to {
+                visibility: hidden;
+                transform: translate3d(-110%, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideOutDown {
+            0% {
+                transform: translate3d(0, var(--y), 0)
+            }
+
+            to {
+                visibility: hidden;
+                transform: translate3d(0, 500px, 0)
+            }
+        }
+
+        @keyframes Toastify__slideOutUp {
+            0% {
+                transform: translate3d(0, var(--y), 0)
+            }
+
+            to {
+                visibility: hidden;
+                transform: translate3d(0, -500px, 0)
+            }
+        }
+
+        .Toastify__slide-enter--top-left,
+        .Toastify__slide-enter--bottom-left {
+            animation-name: Toastify__slideInLeft
+        }
+
+        .Toastify__slide-enter--top-right,
+        .Toastify__slide-enter--bottom-right {
+            animation-name: Toastify__slideInRight
+        }
+
+        .Toastify__slide-enter--top-center {
+            animation-name: Toastify__slideInDown
+        }
+
+        .Toastify__slide-enter--bottom-center {
+            animation-name: Toastify__slideInUp
+        }
+
+        .Toastify__slide-exit--top-left,
+        .Toastify__slide-exit--bottom-left {
+            animation-name: Toastify__slideOutLeft;
+            animation-timing-function: ease-in;
+            animation-duration: .3s
+        }
+
+        .Toastify__slide-exit--top-right,
+        .Toastify__slide-exit--bottom-right {
+            animation-name: Toastify__slideOutRight;
+            animation-timing-function: ease-in;
+            animation-duration: .3s
+        }
+
+        .Toastify__slide-exit--top-center {
+            animation-name: Toastify__slideOutUp;
+            animation-timing-function: ease-in;
+            animation-duration: .3s
+        }
+
+        .Toastify__slide-exit--bottom-center {
+            animation-name: Toastify__slideOutDown;
+            animation-timing-function: ease-in;
+            animation-duration: .3s
+        }
+
+        @keyframes Toastify__spin {
+            0% {
+                transform: rotate(0)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+    </style>
+    <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Web site created using create-react-app">
+    <link rel="apple-touch-icon" href="/logo192.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Park247exch</title>
+    <script defer="defer" src="/static/js/main.10822dd4.js"></script>
+    <link href="/static/css/main.7372d854.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        id="materialize-css">
+</head>
+
+<body class="lightyellowbody" cz-shortcut-listen="true"><noscript>You need to enable JavaScript to run this
+        app.</noscript>
+    <div id="root">
+        <section class="Toastify" aria-live="polite" aria-atomic="false" aria-relevant="additions text"
+            aria-label="Notifications Alt+T"></section>
+        <header>
+            <div class="no-padding top_bar fixedElement balanceouter">
+                <div class="container-fluid pd0">
+                    <div class="row no-margin">
+                        <div class="col-md-6 col-sm-6 mobilewd">
+                            <div class="balance">
+                                <div class="balance_div">Balance : <span id="user_balance" class="plus tooltipped"
+                                        data-position="bottom">6054.00</span> PTI</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 mobilewd">
+                            <div class="expose"><a>Exp : <span id="user_expose" class="plus liability"
+                                        style="cursor: pointer; text-decoration: underline;"> 0.00</span></a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="indigo" role="navigation">
+                <div class="nav-wrapper"><a class="sidenav-trigger" style="height: auto;"><svg clip-rule="evenodd"
+                            fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" style="width: 24px; height: 24px;">
+                            <path
+                                d="m21 15.75c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75zm0-4c0-.414-.336-.75-.75-.75h-16.5c-.414 0-.75.336-.75.75s.336.75.75.75h16.5c.414 0 .75-.336.75-.75z"
+                                fill-rule="nonzero"></path>
+                        </svg></a><a class="brand-logo truncate"><img alt="Logo" class="logo-text"
+                            src="/images/logo.png"></a></div>
+            </nav>
+            <div class="marquee1"><span class="general_message" id="general_message">1️⃣Welcome To Our Exchange .....✨✨✨
+                    2️⃣ 🏆🏏The fight for victory is on! Live World Cup bets are now available on our
+                    exchange....🏆🏏</span></div>
+        </header>
+        <ul id="slide-out" class="sidenav sidenav-fixed z-depth-2 " style="margin-bottom: 65px;">
+            <li class="center no-padding">
+                <div class="indigo darken-2 white-text"><a style="cursor: pointer;"><img alt="Logo" class="logo"
+                            src="/images/logo.png"></a></div>
+            </li>
+            <li><a class="waves-effect active"><b><img class="menu-icon" alt="Home"
+                            src="/images/kingexch-images/dashboard-images/home.svg">Home</b></a></li>
+            <li class="nav-item"><a class="waves-effect "><b><img class="menu-icon" alt=""
+                            src="/images/kingexch-images/dashboard-images/market-analysis.svg">Running Market
+                        Analysis</b></a></li>
+            <li class="nav-item"><a class="waves-effect "><b><img class="menu-icon" alt="Cricket"
+                            src="/images/kingexch-images/dashboard-images/icon-cricket.svg">Cricket</b></a></li>
+            <li class="nav-item"><a class="waves-effect "><b><img class="menu-icon" alt="Tennis"
+                            src="/images/kingexch-images/dashboard-images/icon-tennis.svg">Tennis</b></a></li>
+            <li class="nav-item"><a class="waves-effect "><b><img class="menu-icon" alt="Football"
+                            src="/images/kingexch-images/dashboard-images/icon-football.svg">Football</b></a></li>
+            <li><a class="waves-effect "><b><img class="menu-icon" alt="Balance Overview"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/profitloss.svg">Balance
+                        Overview</b></a></li>
+            <li><a class="waves-effect "><b><img class="menu-icon" alt="Statement"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/statement.svg">A/C
+                        Statement</b></a></li>
+            <li><a class="waves-effect "><b><img class="menu-icon" alt="Profit Loss"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/profitloss.svg">Profit
+                        Loss</b></a></li>
+            <li><a class="waves-effect "><b><img class="menu-icon" alt="Bets History"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/bets.svg">Bets
+                        History</b></a></li>
+            <li><a class="waves-effect "><b><img class="menu-icon" alt="Change Password"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/profile.svg">Change
+                        Password</b></a></li>
+            <li><a class="waves-effect logout_btn"><b><img class="menu-icon" alt="Logout"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/logout.svg">Logout</b></a>
+            </li>
+        </ul>
+        <main>
+            <div class="dashpd5">
+                <div class="fullrow tile_count content-outer">
+                    <div class="row pd0">
+                        <div class="col-lg-9 col-md-9 col-xs-12 pd0">
+                            <div id="UpCommingData">
+                                <div class="sport-highlight-content" id="accountView" role="main">
+                                    <div class="tabs-fixed-width">
+                                        <div class="nav mb-3 market-tabs" id="nav-tab" role="tablist"><button
+                                                class="tabbtn " type="button" role="tab" aria-selected="false"><img
+                                                    class="sport_ball_img" alt="Featured"
+                                                    src="/images/kingexch-images/dashboard-images/in-play.svg"><span>Featured</span></button><button
+                                                class="tabbtn " type="button" role="tab" aria-selected="false"><img
+                                                    class="sport_ball_img" alt="Casino"
+                                                    src="/images/kingexch-images/dashboard-images/icon-casino.svg"><span>Casino</span></button><button
+                                                class="tabbtn " type="button" role="tab" aria-selected="false"><img
+                                                    class="sport_ball_img" alt="Cricket"
+                                                    src="/images/kingexch-images/dashboard-images/icon-cricket.svg"><span>Cricket</span></button><button
+                                                class="tabbtn " type="button" role="tab" aria-selected="false"><img
+                                                    class="sport_ball_img" alt="Football"
+                                                    src="/images/kingexch-images/dashboard-images/icon-football.svg"><span>Football</span></button><button
+                                                class="tabbtn " type="button" role="tab" aria-selected="false"><img
+                                                    class="sport_ball_img" alt="Tennis"
+                                                    src="/images/kingexch-images/dashboard-images/icon-tennis.svg"><span>Tennis</span></button><button
+                                                class="tabbtn active" type="button" role="tab" aria-selected="true"><img
+                                                    class="sport_ball_img" alt="Horse Racing"
+                                                    src="/images/kingexch-images/dashboard-images/icon-horse.svg"><span>Horse
+                                                    Racing</span></button></div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" role="tabpanel">
+                                            <div class="tab-pane fade active show" id="footballTabCont" role="tabpanel"
+                                                aria-labelledby="footballTab">
+                                                <div class="inplaymatch-outer">
+                                                    <div id="footballCont" class="accordion-collapse collapse show"
+                                                        aria-labelledby="footballTab"
+                                                        data-bs-parent="#accordionExample">
+                                                        <div class="inplaymatch-accordion-cont">
+                                                            <table class="event-list">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div id="user_row_34321343"
+                                                                                class="sport_row sportrow-4 row-outerborder-none matchrow-34321343"
+                                                                                title="Match OODS"
+                                                                                style="cursor: pointer;">
+                                                                                <div class="sport_name"><time>16 May
+                                                                                        2025 21:00:00<div
+                                                                                            class="match_status"><span
+                                                                                                class="inplay_txt"
+                                                                                                style="margin-left: 4px;">In-Play</span>
+                                                                                        </div><span id="fav34321343"><i
+                                                                                                class="fa fa-star-o"
+                                                                                                aria-hidden="true"></i></span></time><a>MC
+                                                                                        Oran v NC Magra | Algerian Ligue
+                                                                                        1</a></div>
+                                                                                <div
+                                                                                    class="match_odds_front d-sm-block d-md-block d-sm-none">
+                                                                                    <div class="res-back-lay"><span
+                                                                                            class="back-cell">1.53</span><span
+                                                                                            class="lay-cell">1.73</span><span
+                                                                                            class="back-cell">3.8</span><span
+                                                                                            class="lay-cell">4.2</span><span
+                                                                                            class="back-cell">6.4</span><span
+                                                                                            class="lay-cell">9.8</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div id="user_row_34321131"
+                                                                                class="sport_row sportrow-4 row-outerborder-none matchrow-34321131"
+                                                                                title="Match OODS"
+                                                                                style="cursor: pointer;">
+                                                                                <div class="sport_name"><time>16 May
+                                                                                        2025 21:00:00<div
+                                                                                            class="match_status"><span
+                                                                                                class="inplay_txt"
+                                                                                                style="margin-left: 4px;">In-Play</span>
+                                                                                        </div><span id="fav34321131"><i
+                                                                                                class="fa fa-star-o"
+                                                                                                aria-hidden="true"></i></span></time><a>Olympique
+                                                                                        Akbou v USM Khenchela | Algerian
+                                                                                        Ligue 1</a></div>
+                                                                                <div
+                                                                                    class="match_odds_front d-sm-block d-md-block d-sm-none">
+                                                                                    <div class="res-back-lay"><span
+                                                                                            class="back-cell">1.74</span><span
+                                                                                            class="lay-cell">1.78</span><span
+                                                                                            class="back-cell">3.3</span><span
+                                                                                            class="lay-cell">3.4</span><span
+                                                                                            class="back-cell">7.2</span><span
+                                                                                            class="lay-cell">7.8</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div id="user_row_34307504"
+                                                                                class="sport_row sportrow-4 row-outerborder-none matchrow-34307504"
+                                                                                title="Match OODS"
+                                                                                style="cursor: pointer;">
+                                                                                <div class="sport_name"><time>16 May
+                                                                                        2025 21:30:00<div
+                                                                                            class="match_status"><span
+                                                                                                class="going_inplay"
+                                                                                                style="margin-left: 4px;">Going
+                                                                                                In-play</span></div>
+                                                                                        <span id="fav34307504"><i
+                                                                                                class="fa fa-star-o"
+                                                                                                aria-hidden="true"></i></span></time><a>Fredrikstad
+                                                                                        v KFUM Oslo | Norwegian
+                                                                                        Eliteserien</a></div>
+                                                                                <div
+                                                                                    class="match_odds_front d-sm-block d-md-block d-sm-none">
+                                                                                    <div class="res-back-lay"><span
+                                                                                            class="back-cell">2.04</span><span
+                                                                                            class="lay-cell">2.06</span><span
+                                                                                            class="back-cell">3.1</span><span
+                                                                                            class="lay-cell">3.15</span><span
+                                                                                            class="back-cell">5.1</span><span
+                                                                                            class="lay-cell">5.2</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div id="user_row_34311263"
+                                                                                class="sport_row sportrow-4 row-outerborder-none matchrow-34311263"
+                                                                                title="Match OODS"
+                                                                                style="cursor: pointer;">
+                                                                                <div class="sport_name"><time>16 May
+                                                                                        2025 21:30:00<div
+                                                                                            class="match_status"><span
+                                                                                                class="going_inplay"
+                                                                                                style="margin-left: 4px;">Going
+                                                                                                In-play</span></div>
+                                                                                        <span id="fav34311263"><i
+                                                                                                class="fa fa-star-o"
+                                                                                                aria-hidden="true"></i></span></time><a>NK
+                                                                                        Istra v Sibenik | Croatian 1
+                                                                                        HNL</a></div>
+                                                                                <div
+                                                                                    class="match_odds_front d-sm-block d-md-block d-sm-none">
+                                                                                    <div class="res-back-lay"><span
+                                                                                            class="back-cell">1.71</span><span
+                                                                                            class="lay-cell">1.72</span><span
+                                                                                            class="back-cell">3.85</span><span
+                                                                                            class="lay-cell">3.95</span><span
+                                                                                            class="back-cell">6.2</span><span
+                                                                                            class="lay-cell">6.4</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div id="user_row_34307654"
+                                                                                class="sport_row sportrow-4 row-outerborder-none matchrow-34307654"
+                                                                                title="Match OODS"
+                                                                                style="cursor: pointer;">
+                                                                                <div class="sport_name"><time>16 May
+                                                                                        2025 21:30:00<div
+                                                                                            class="match_status"><span
+                                                                                                class="going_inplay"
+                                                                                                style="margin-left: 4px;">Going
+                                                                                                In-play</span></div>
+                                                                                        <span id="fav34307654"><i
+                                                                                                class="fa fa-star-o"
+                                                                                                aria-hidden="true"></i></span></time><a>Viking
+                                                                                        v Sandefjord | Norwegian
+                                                                                        Eliteserien</a></div>
+                                                                                <div
+                                                                                    class="match_odds_front d-sm-block d-md-block d-sm-none">
+                                                                                    <div class="res-back-lay"><span
+                                                                                            class="back-cell">1.67</span><span
+                                                                                            class="lay-cell">1.68</span><span
+                                                                                            class="back-cell">4.5</span><span
+                                                                                            class="lay-cell">4.6</span><span
+                                                                                            class="back-cell">5.4</span><span
+                                                                                            class="lay-cell">5.5</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer-menu">
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item "><a class="nav-link " style="cursor: pointer; height: 100%;"><img
+                            alt="Change Password"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/lock-icon.svg"><span>Change
+                            Password</span></a></li>
+                <li class="nav-item "><a class="nav-link " style="cursor: pointer; height: 100%;"><img alt="In-Play"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/clock-icon.svg"><span>In-Play</span></a>
+                </li>
+                <li class="nav-item main-item"><a class="nav-link active" style="cursor: pointer; height: 100%;"><img
+                            alt="Home"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/home-icon.svg"><span>Home</span></a>
+                </li>
+                <li class="nav-item "><a class="nav-link " style="cursor: pointer; height: 100%;"><img alt="Casinos"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/casino-icon.svg"><span>Casinos</span></a>
+                </li>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;"><img alt="Account"
+                            src="https://fairbet360.com/assets/images/kingexch-images/dashboard-images/user-icon.svg"><span>surat</span></a>
+                    <ul class="dropdown-menu dropdown-menu-end position" aria-labelledby="dropdownMenuButton">
+                        <li class="username"><strong>surat</strong> <strong class="timezone">GMT+5:30</strong></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item">Balance Overview</a></li>
+                        <li><a class="dropdown-item">Account Statement</a></li>
+                        <li><a class="dropdown-item">Bets History</a></li>
+                        <li><a class="dropdown-item">Profit &amp; Loss</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="logout d-grid"><button class="btn btn-dark btn-sm" style="line-height: 16px;">Logout
+                                <i class="fa fa-sign-out" aria-hidden="true"></i></button></li>
+                    </ul>
+                </li>
+            </ul>
+        </footer>
+    </div>
+    <script>"/" !== window.location.pathname ? document.body.classList.add("lightyellowbody") : document.body.classList.remove("lightyellowbody")</script>
+    <div id="give-freely-root-ejkiikneibegknkgimmihdpcbcedgmpo" class="give-freely-root"
+        data-extension-id="ejkiikneibegknkgimmihdpcbcedgmpo" data-extension-name="Volume Booster"
+        style="display: block;"></div><veepn-lock-screen>
+        <style>
+            @font-face {
+                font-family: FigtreeVF;
+                src: url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"), url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");
+                font-weight: 100 1000;
+                font-display: swap
+            }
+        </style>
+    </veepn-lock-screen>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" defer=""
+        id="materialize-js"></script>
+</body>
+
+</html>
