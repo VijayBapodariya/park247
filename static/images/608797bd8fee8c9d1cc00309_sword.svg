@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="59px" viewBox="0 0 58 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>sword</title>
+    <g id="Page-1-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Cloudbet-Landing-Page-3" transform="translate(-66.000000, -4081.000000)" stroke="#F8932F" stroke-width="2">
+            <g id="sword" transform="translate(67.500000, 4082.500000)">
+                <polygon id="Path" transform="translate(34.112663, 21.155556) rotate(-90.000000) translate(-34.112663, -21.155556) " points="23.2163073 0.26821837 12.9571073 11.0341329 36.9499961 39.7196952 55.2682184 42.0428927 52.3387961 23.5708234"></polygon>
+                <path d="M5.65929056,45.3128183 C4.24279067,46.7992809 4.28346313,49.1680917 5.75013505,50.6037053 C7.21680696,52.0393189 9.55407952,51.9980976 10.9705795,50.5116351 L26.3593795,34.3678082 C27.277028,33.4062355 27.6188073,32.0215401 27.2559723,30.7353233 C26.8931374,29.4491066 25.8808114,28.4567753 24.6003279,28.1321313 C23.3198444,27.8074872 21.9657391,28.1998514 21.0480906,29.1614241" id="Path" transform="translate(16.010671, 39.837064) rotate(-90.000000) translate(-16.010671, -39.837064) "></path>
+                <line x1="43.5707213" y1="36.9140828" x2="18.3408546" y2="12.2190727" id="Path" transform="translate(30.955788, 24.566578) rotate(-90.000000) translate(-30.955788, -24.566578) "></line>
+                <line x1="21.4092877" y1="49.949496" x2="11.0978211" y2="39.8570818" id="Path" transform="translate(16.253554, 44.903289) rotate(-90.000000) translate(-16.253554, -44.903289) "></line>
+                <line x1="16.0263305" y1="44.819896" x2="5.7148638" y2="34.7274818" id="Path" transform="translate(10.870597, 39.773689) rotate(-90.000000) translate(-10.870597, -39.773689) "></line>
+                <ellipse id="Oval" transform="translate(5.612502, 50.462222) rotate(-90.000000) translate(-5.612502, -50.462222) " cx="5.61250229" cy="50.4622222" rx="5.53777778" ry="5.61250229"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>

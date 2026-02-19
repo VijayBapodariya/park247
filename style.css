@@ -6425,7 +6425,7 @@ strong {
     url(https://assets-global.website-files.com/608797bd8fee8c59d4c0029e/62ddcc2f6aace73d45d63f8d_solanaShape2-full.png);
 }
 .esport-bg {
-  background-image: url(wmremove1-transformed1.png);
+  background-image: url(static/images/wmremove1-transformed1.png);
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -10512,30 +10512,79 @@ body {
   background-color: #313131 !important;
 }
 
-/* Mobile Footer Responsive Styles */
+/* Base Footer Styling */
+.footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.fmenus {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.fmenus li a {
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.fmenus li a:hover {
+  color: #FDE39D !important;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.social-icons img {
+  width: 24px;
+  height: auto;
+  transition: 0.3s ease;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}
+
+/* Mobile Footer Responsive */
 @media screen and (max-width: 767px) {
+
   .footer-bar {
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    text-align: center;
   }
+
   .fmenus {
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
-    width: 100%;
+    gap: 10px;
   }
+
   .fmenus li a {
     font-size: 12px;
-    padding-right: 5px;
-    margin-right: 2px;
   }
+
   .social-icons {
     justify-content: center;
-    width: 100%;
   }
-  .heading {
-    font-size: 1.5rem !important;
+
+  .license-image img {
+    width: 180px !important;
+  }
+
+  .copyrights-text {
+    font-size: 12px;
+    line-height: 1.5;
   }
 }
 
